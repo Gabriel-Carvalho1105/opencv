@@ -1,0 +1,34 @@
+Já faz algum tempo que finalizei o meu modulo de OpenCV que estou cursando no fit voltado para área de visão computacional e gostaria de compartilhar um pouco do meu aprendizado.
+
+Vocês já ouviram falar da biblioteca OpenCV? Ela é usada para pré processamento de imagens para facilitar a criação de DataSets.
+
+Na primeira foto vocês podem visualizar varios tipos de pré processamento de uma mesma imagem.
+
+cv.imread() : Carrega uma imagem do computador (colorida ou em tons de cinza utlizando IMREAD_GRAYSCALE)
+cv.blur() : Aplica um desfoque simples, suavizando a imagem
+cv.GaussianBlur() : Aplica um desfoque mais natural, reduzindo ruídos
+cv.Laplacian() : Destaca as bordas com grandes variações de intensidade
+cv.Canny() : Detecta bordas suaves com base em contraste e gradientes
+
+Um detalhe importante que se deve citar é em como o Blur é utilizado na detecção de bordas, como vocês podem ver na linha 9 do código foi utilizado o filtro na imagem orinal colorida.
+
+image_laplacian = cv.Laplacian(image, cv.CV_64F)
+Como o fundo da imagem tinha muitos detalhes, o filtro acabou detectando bordas indesejadas no fundo.
+Isso atrapalha o pré-processamento de imagens, principalmente se você quer focar só no objeto principal (o gato, por exemplo).
+
+Na linha 10 ocorre de uma forma diferente, foi utilizado um desfoque com filtro Blur
+
+image_laplacian_blur = cv.Laplacian(image_blur, cv.CV_64F)
+Neste caso, apliquei um desfoque (blur) antes do Laplacian.
+O desfoque ajudou a suavizar detalhes do fundo, reduzindo ruídos visuais.
+Com isso, o Laplacian realçou melhor as bordas importantes, como as do rosto, olhos e contorno do gato.
+
+Conclusão importante:
+
+Aplicar um blur antes de detectar bordas pode ajudar o computador a:
+
+Ignorar detalhes irrelevantes do fundo
+
+Focar nas bordas que realmente importam
+
+Melhorar o desempenho de sistemas de reconhecimento e segmentação
